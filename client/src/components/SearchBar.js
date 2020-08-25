@@ -6,21 +6,18 @@ const SearchBar = ({ returnSearch }) => {
   // We need some state to handle the movie search term
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Update the state for the search term
-  const getCurrentSearch = (e) => {
+  const searchHandler = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Handle the form submission - send the search to the callback passed as props
-  const onFormSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    // send the search term to the callback in the parent to this component - if this was a more complex app, we'd be using redux or context
     returnSearch(searchTerm);
   };
 
   return (
     <Form
-      onSubmit={(e) => onFormSubmit(e)}
+      onSubmit={(e) => onSubmit(e)}
       style={{
         display: "flex",
         width: "70%",
@@ -28,11 +25,10 @@ const SearchBar = ({ returnSearch }) => {
         marginTop: "20px",
       }}
     >
-      {/* Contorlled input component */}
       <Input
         type="text"
         placeholder="Enter a movie name, genre, etc."
-        onChange={(e) => getCurrentSearch(e)}
+        onChange={(e) => searchHandler(e)}
         value={searchTerm}
         style={{
           borderTopRightRadius: "0",
@@ -41,7 +37,7 @@ const SearchBar = ({ returnSearch }) => {
       />
       <button
         className="btn btn-primary"
-        onSubmit={(e) => onFormSubmit(e)}
+        onSubmit={(e) => onSubmit(e)}
         style={{
           backgroundColor: "#343a40",
           border: "none",
@@ -56,11 +52,6 @@ const SearchBar = ({ returnSearch }) => {
 };
 
 // PropTypes and default props are essential for debugging and for clean code and for good error handling
-
-// Default props
-SearchBar.defaultProps = {
-  returnSearch: "best movies",
-};
 
 // Proptypes
 SearchBar.propTypes = {
