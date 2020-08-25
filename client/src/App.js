@@ -10,7 +10,6 @@ function App() {
   }, []);
 
   return (
-    // no need for react router in this app - it is literally going to be a single page without links to anything else
     <div className="App">
       <h1>Hello</h1>
     </div>
