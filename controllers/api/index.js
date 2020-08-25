@@ -16,7 +16,7 @@ router.get("/:movies", async (req, res) => {
 
   // check the cache for an existing search for this query - if it does not exist, send the request
   if (cache[movies]) {
-    return res.status(200).json({ movies: cache[movies] });
+    return res.status(200).json(cache[movies]);
   } else {
     try {
       // Perform the request - returns JSON
@@ -27,6 +27,7 @@ router.get("/:movies", async (req, res) => {
       const data = await movielist.json();
       // cache
       cache[movies] = data;
+      //console.log(data.results); // remove .results to get total pages when adding pagination
       // return
       return res.status(200).json(data);
     } catch (error) {
