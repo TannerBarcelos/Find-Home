@@ -1,24 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
 
 function App() {
+  // fetch [at the proxy endpoint] the /api/city_name route [for testing proxy works, we do this here]
+  // but we will extract this to a new component later
+  useEffect(() => {
+    fetch("/api/santa clara")
+      .then((res) => res.json())
+      .then((res_) => console.log(res_));
+  }, []);
+
   return (
+    // no need for react router in this app - it is literally going to be a single page without links to anything else
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello</h1>
     </div>
   );
 }
