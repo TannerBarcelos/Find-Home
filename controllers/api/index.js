@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 require("dotenv").config();
 
-router.get("/", async (req, res) => {
-  res.json({ msg: "Zillow API is not what i need" });
+router.get("/:movies", (req, res) => {
+  const { movies } = req.params;
+  res.json({ msg: movies });
 });
 
 module.exports = router;
