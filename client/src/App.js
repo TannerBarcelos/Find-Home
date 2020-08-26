@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Spinner } from "reactstrap";
 
 // Components
 import SearchBar from "./components/SearchBar";
@@ -40,7 +41,14 @@ const App = () => {
   return (
     <div className="App">
       <SearchBar returnSearch={fetchResources} />
-      <MovieList movieList={state.movies[0]} />
+      {/* render a spinner on load - load state is true during fetch all the way till the data is returned, useEffect re-renders and then the movies render */}
+      {loading ? (
+        <div className="text-center" style={{ marginTop: "50%" }}>
+          <Spinner style={{ width: "3rem", height: "3rem" }} />
+        </div>
+      ) : (
+        <MovieList movieList={state.movies[0]} />
+      )}
     </div>
   );
 };

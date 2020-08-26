@@ -1,7 +1,5 @@
 import React from "react";
 
-import { CardGroup, Card } from "reactstrap";
-
 // card
 import MovieCard from "./MovieCard";
 
@@ -15,6 +13,7 @@ function MovieList({ movieList }) {
         justifyContent: "center",
       }}
     >
+      {/* Map out MovieCards for each movie returned from the query */}
       {movieList.map(({ id, title, vote_average, poster_path, overview }) => {
         return (
           <MovieCard
