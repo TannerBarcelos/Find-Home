@@ -6,29 +6,41 @@ import MovieList from "./components/MovieList";
 
 const App = () => {
   const [search, setSearch] = useState("");
-  const [collection, setCollection] = useState({});
+  const [state, setState] = useState({ movies: [] });
+  const [loading, setLoading] = useState(false);
 
   // callback sent down to the search bar to get the users search criteria
   const fetchResources = (searchQuery) => {
     setSearch(searchQuery);
   };
 
+  // utility function to fetch data
+  const fetchMovies = async (endpoint) => {
+    setLoading(true);
+    try {
+      const result = await fetch(endpoint);
+      const data = await result.json();
+      setState({
+        movies: [data.results],
+      });
+      console.log(state.movies[0]);
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
+  };
+
   // run on initial render and anytime ONLY a new request is sent - so the dependency for this to run again is when the search criteria changes so pass that into dep. array
   useEffect(() => {
-    fetch(`/api/${search.length > 0 ? search : "movie"}`)
-      // our api proxies movie api and returns json so we must also parse it as such
-      .then((res) => res.json())
-      .then((data) => {
-        setCollection(Object.assign(collection, data));
-        console.log(collection);
-      });
+    const endpoint = `/api/${search.length === 0 ? "marvel" : search}`;
+    fetchMovies(endpoint);
   }, [search]);
 
-  console.log(collection.page);
+  //console.log(state.movies);
   return (
     <div className="App">
       <SearchBar returnSearch={fetchResources} />
-      <MovieList movieData={collection} />
+      <MovieList movieList={state.movies[0]} />
     </div>
   );
 };

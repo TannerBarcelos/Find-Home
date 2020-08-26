@@ -5,14 +5,29 @@ import { CardGroup, Card } from "reactstrap";
 // card
 import MovieCard from "./MovieCard";
 
-function MovieList({ movieData }) {
-  console.log(movieData);
-  return !movieData ? (
-    ""
-  ) : (
-    <CardGroup>
-      <MovieCard id={1} />
-    </CardGroup>
+function MovieList({ movieList }) {
+  return !movieList ? null : (
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "row",
+        justifyContent: "center",
+      }}
+    >
+      {movieList.map(({ id, title, vote_average, poster_path, overview }) => {
+        return (
+          <MovieCard
+            key={id}
+            id={id}
+            title={title}
+            vote_average={vote_average}
+            poster_path={poster_path}
+            overview={overview}
+          />
+        );
+      })}
+    </div>
   );
 }
 
